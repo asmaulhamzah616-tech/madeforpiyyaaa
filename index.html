@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Made For Piyyaaa ❤️</title>
+<style>
+body{
+margin:0;
+background:black;
+color:white;
+text-align:center;
+font-family:Arial;
+overflow:hidden;
+}
+.section{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+.active{
+display:flex;
+}
+img{
+max-width:80%;
+border-radius:20px;
+box-shadow:0 0 20px pink;
+}
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:pink;
+color:black;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<audio autoplay loop>
+<source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<div id="countdown" class="section active">
+<h1>Menuju Ulang Tahun Piyyaaa 🎂</h1>
+<h2 id="timer"></h2>
+</div>
+
+<div id="typing" class="section">
+<h1 id="text"></h1>
+</div>
+
+<div id="gift" class="section">
+<button onclick="openGift()">Buka Kadonya 🎁</button>
+</div>
+
+<div id="gallery" class="section">
+<img id="photo" src="foto1.jpg">
+</div>
+
+<script>
+var birthday = new Date("April 4, 2026 00:00:00").getTime();
+
+var x = setInterval(function(){
+var now = new Date().getTime();
+var distance = birthday - now;
+
+var days = Math.floor(distance / (1000*60*60*24));
+var hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+var minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+var seconds = Math.floor((distance % (1000*60))/1000);
+
+document.getElementById("timer").innerHTML =
+days+" Hari "+hours+" Jam "+minutes+" Menit "+seconds+" Detik";
+
+if(distance < 0){
+clearInterval(x);
+document.getElementById("countdown").classList.remove("active");
+document.getElementById("typing").classList.add("active");
+typeText();
+}
+},1000);
+
+var message = "Selamat ulang tahun Piyyaaa ❤️ Kamu adalah alasan aku bahagia setiap hari.";
+
+var i = 0;
+function typeText(){
+if(i < message.length){
+document.getElementById("text").innerHTML += message.charAt(i);
+i++;
+setTimeout(typeText, 70);
+}else{
+setTimeout(function(){
+document.getElementById("typing").classList.remove("active");
+document.getElementById("gift").classList.add("active");
+},2000);
+}
+}
+
+function openGift(){
+document.getElementById("gift").classList.remove("active");
+document.getElementById("gallery").classList.add("active");
+
+var photos = ["foto1.jpg","foto2.jpg","foto3.jpg"];
+var index = 0;
+
+setInterval(function(){
+index = (index+1)%photos.length;
+document.getElementById("photo").src = photos[index];
+},3000);
+}
+</script>
+
+</body>
+</html>
